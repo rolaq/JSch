@@ -60,19 +60,22 @@ function funcionSino() {
     }
 }
 
-function funcionDescuento( valor, descuentoUsado ){
+function funcionDescuento(valor){
 
+    if (descuentoUsado){
+        alert("el codigo ya fue usado")
+        return valor
+    }
     const codigo = prompt("ingrese un codigo de descuento: ")
 
     if (codigo === codigoDescuento){
 
         valor = descuento * valor
         alert("el codigo fue aplicado y " + compraInfo + valor)
-
+        descuentoUsado = true
     } else{
         alert("el codigo ingresado es incorrecto")
     }
-    
 
     return valor
 }
@@ -89,7 +92,7 @@ while(condicion){
             break;
 
         case 2: valorTotal = funcionDescuento(valorTotal)
-    
+        
             break;
         
         case 3: alert(compraInfo + valorTotal)
