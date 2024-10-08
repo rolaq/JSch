@@ -4,6 +4,7 @@ let productos = {producto1:10,producto2:20,producto3:30,producto4:40,producto5:5
 
 let tienda = [productos.producto1,productos.producto2,productos.producto3,productos.producto4,productos.producto5]
 
+let tienda1 = [{nombre: "producto1", precio: 10},{nombre: "producto2", precio: 20},{nombre: "producto3", precio: 30},{nombre: "producto4", precio: 40},{nombre: "producto5", precio: 50}]
 
 let valorTotal = 0
 
@@ -12,36 +13,57 @@ const codigoDescuento = "CoderHouse"
 const descuento = 0.5
 
 const compraInfo = "el valor de su compra es de : "
+let carrito = []
+
+
+function pedirNumero(){
+    let correcto = false
+
+    while(!correcto){
+        const productoSelec = parseInt(prompt("Digite el numero del producto que quiere comprar: "))
+        if(productoSelec > 0 && productoSelec <= 5 && !isNaN(productoSelec)){
+            correcto = true
+        } else{
+            alert("Digite una opcion correcta entre el 1 y 5")
+        }
+    }
+    
+    return productoSelec
+}
+
 
 function comprar(){
 
-    let valor = 0
     let condicion = true
     let multiplicar = 1 
-    let compra = 0
+    let compraValor = 0
+    let compraNombre = ""
 
     do{
         multiplicar = 1
-        
+        compraNombre = ""
+
         alert("Productos \n1. producto1 : 10$ \n2. Producto2 : 20$ \n3. Producto3 : 30$ \n4. Producto4 : 40$\n5. Producto5 : 50$")
     
+        
         const productoSelec = parseInt(prompt("Digite el numero del producto que quiere comprar: "))
 
         multiplicar = parseInt(prompt("Cuantas unidades quieres del producto: "))
 
-        compra = tienda[productoSelec - 1 ] * multiplicar
-        valor += compra
+        compraValor = tienda1[productoSelec - 1 ].precio * multiplicar
+        valorTotal += compraValor 
 
-        alert("Su compra hecha es de: " + compra)
+        compraNombre += tienda1[productoSelec - 1].nombre
+        carrito += compraNombre + " * " + multiplicar + "\n"
+
+        alert("Su compra hecha es de: " + compraNombre + "     " + compraValor)
         
 
         condicion = funcionSino()
   
-        alert(compraInfo + valor)
+        alert(compraInfo + valorTotal)
 
     } while(condicion)
-    
-    return valor
 }
 
 function funcionSino() {
@@ -60,24 +82,26 @@ function funcionSino() {
     }
 }
 
-function funcionDescuento(valor){
+function funcionDescuento(){
 
     if (descuentoUsado){
-        alert("el codigo ya fue usado")
-        return valor
+        return alert("el codigo ya fue usado")
     }
     const codigo = prompt("ingrese un codigo de descuento: ")
 
     if (codigo === codigoDescuento){
 
-        valor = descuento * valor
-        alert("el codigo fue aplicado y " + compraInfo + valor)
+        valorTotal = descuento * valorTotal
+        alert("el codigo fue aplicado y " + compraInfo + valorTotal)
         descuentoUsado = true
     } else{
         alert("el codigo ingresado es incorrecto")
     }
+}
 
-    return valor
+
+function mostrarCarrito(){
+    alert(carrito + "\n" + valorTotal)
 }
 
 let condicion = true
@@ -88,14 +112,14 @@ while(condicion){
 
     switch(opc){
 
-        case 1: valorTotal += comprar()
+        case 1: comprar()
             break;
 
-        case 2: valorTotal = funcionDescuento(valorTotal)
+        case 2: funcionDescuento()
         
             break;
         
-        case 3: alert(compraInfo + valorTotal)
+        case 3: mostrarCarrito()
             break;
         
         case 4: condicion = false;
