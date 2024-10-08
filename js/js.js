@@ -1,9 +1,5 @@
 
 
-let productos = {producto1:10,producto2:20,producto3:30,producto4:40,producto5:50}
-
-let tienda = [productos.producto1,productos.producto2,productos.producto3,productos.producto4,productos.producto5]
-
 let tienda1 = [{nombre: "producto1", precio: 10},{nombre: "producto2", precio: 20},{nombre: "producto3", precio: 30},{nombre: "producto4", precio: 40},{nombre: "producto5", precio: 50}]
 
 let valorTotal = 0
@@ -15,20 +11,30 @@ const descuento = 0.5
 const compraInfo = "el valor de su compra es de : "
 let carrito = []
 
+function pedirNumero() {
+    let productoSelec
 
-function pedirNumero(){
-    let correcto = false
-
-    while(!correcto){
-        const productoSelec = parseInt(prompt("Digite el numero del producto que quiere comprar: "))
-        if(productoSelec > 0 && productoSelec <= 5 && !isNaN(productoSelec)){
-            correcto = true
-        } else{
-            alert("Digite una opcion correcta entre el 1 y 5")
+    do {
+        productoSelec = parseInt(prompt("digite el numero del producto que quiere comprar: "))
+        if (productoSelec < 1 || productoSelec > 5 || isNaN(productoSelec)) {
+            alert("elija un producto valido")
         }
-    }
-    
+    } while (productoSelec < 1 || productoSelec > 5 || isNaN(productoSelec))
+
     return productoSelec
+}
+
+function pedirMultiplicar(){
+    let multiplicar;
+
+        do {
+            multiplicar = parseInt(prompt("Cuantas unidades quieres del producto?: "));
+            if (isNaN(multiplicar) || multiplicar <= 0) {
+                alert("Ingrese un valor valido")
+            }
+        } while (isNaN(multiplicar) || multiplicar <= 0)
+
+    return multiplicar
 }
 
 
@@ -46,9 +52,9 @@ function comprar(){
         alert("Productos \n1. producto1 : 10$ \n2. Producto2 : 20$ \n3. Producto3 : 30$ \n4. Producto4 : 40$\n5. Producto5 : 50$")
     
         
-        const productoSelec = parseInt(prompt("Digite el numero del producto que quiere comprar: "))
+        const productoSelec = pedirNumero()
 
-        multiplicar = parseInt(prompt("Cuantas unidades quieres del producto: "))
+        multiplicar = pedirMultiplicar()
 
         compraValor = tienda1[productoSelec - 1 ].precio * multiplicar
         valorTotal += compraValor 
@@ -101,7 +107,11 @@ function funcionDescuento(){
 
 
 function mostrarCarrito(){
-    alert(carrito + "\n" + valorTotal)
+    if(descuentoUsado){
+        alert(carrito + "\n" + valorTotal + "Descuento usado")
+    } else{
+        alert(carrito + "\n" + valorTotal)
+    }
 }
 
 let condicion = true
