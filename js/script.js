@@ -107,10 +107,13 @@ function mostrarCarrito(){
     }
 
     let mensaje = "Tu Compra: \n";
+
     for (let i = 0; i < carritoCompra.length; i++) {
         mensaje += (i+1) + ". " + carritoCompra[i].nombre + " - " + carritoCompra[i].precio + "$ x " + carritoCompra[i].cantidad + " unidades\n";
     }
+
     mensaje += "---------------------" + compraTotal;
+    
     alert(mensaje);
 }
 
@@ -170,8 +173,8 @@ function comprar(){
 
 function funcionDescuento(){
 
-    if (descuentoUsado){
-        return alert("el codigo ya fue usado")      // si el codigo fue usado salgo de la funcion retornando el alert
+    if (descuentoUsado){                        // condicion descuentoUsado es un bool que maneja este flujo
+        return alert("el codigo ya fue usado")     
     }
 
     const codigo = prompt("ingrese un codigo de descuento: ")
